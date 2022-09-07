@@ -10,6 +10,7 @@ class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     # filtering method by 'django_filters'
     filterset_fields = ['status', 'author__username']
+    ordering_fields = ['status', 'publish']
     search_fields = [
                      'title',
                      'content',
