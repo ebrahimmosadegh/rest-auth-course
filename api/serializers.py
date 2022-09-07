@@ -3,7 +3,15 @@ from rest_framework import serializers
 from blog.models import Article
 from django.contrib.auth import get_user_model
 
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["id", "username", "first_name", "last_name"]
+
+
 class ArticleSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
     class Meta:
         model = Article
         fields = "__all__"
@@ -14,6 +22,7 @@ class ArticleSerializer(serializers.ModelSerializer):
             if i not in value:
                 raise serializers.ValidationError("word is not about this text: {}".format(i))
         return value
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
