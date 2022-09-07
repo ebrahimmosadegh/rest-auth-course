@@ -10,6 +10,13 @@ class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     # filtering method by 'django_filters'
     filterset_fields = ['status', 'author__username']
+    search_fields = [
+                     'title',
+                     'content',
+                     'author__username',
+                     'author__first_name',
+                     'author__last_name'
+                     ]
 
     def get_permissions(self):
         if self.action in ['list','create']:
