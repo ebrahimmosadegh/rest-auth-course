@@ -8,6 +8,13 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = "__all__"
 
+    def validate_title(self, value):
+        filter_list = ["javascript", "laravel", "php"]
+        for i in filter_list:
+            if i not in value:
+                raise serializers.ValidationError("word is not about this text: {}".format(i))
+        return value
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
